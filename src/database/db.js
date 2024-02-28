@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
-const mongo_url = "mongodb+srv://lucasbonna:6qFGs7JY8Lc0YIXN@cluster0.eelgvoj.mongodb.net/"
+const mongo_url =
+  "mongodb+srv://lucasbonnafavaro:7LyD51Lj6Uc6QXDD@cluster0.c6yekv1.mongodb.net/USJT";
 
-console.log("MONGO_URL:", mongo_url);
-
-mongoose.connect(process.env.MONGO_URL)
+mongoose
+  .connect(mongo_url)
   .then(() => {
-    console.log('Conexão com o MongoDB estabelecida.');
+    console.log("Conexão com o MongoDB estabelecida.");
   })
   .catch((err) => {
-    console.error('Erro ao conectar ao MongoDB:', err);
+    console.error("Erro ao conectar ao MongoDB:", err);
   });
 
 module.exports = mongoose;
