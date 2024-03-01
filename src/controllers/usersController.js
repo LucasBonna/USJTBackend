@@ -1,5 +1,4 @@
 const { User } = require("../../models");
-const bcrypt = require("bcrypt");
 
 const usersController = {
   getUsers: async (req, res) => {
@@ -11,7 +10,7 @@ const usersController = {
       if (!users) {
         return res.status(404).json({ message: "Erro ao buscar usuarios!" });
       }
-
+      
       return res
         .status(200)
         .json({ message: "Usuarios buscados com sucesso!", users });
@@ -21,35 +20,7 @@ const usersController = {
     }
   },
 
-  createUser: async (req, res) => {
-    const { email, username, password } = req.body;
-    try {
-      const existingUser = await User.findOne({
-        $or: [{ email }, { username }],
-      });
-      if (existingUser) {
-        return res
-          .status(409)
-          .json({ message: "Email or username already exists" });
-      }
-
-      hashedPassword = await bcrypt.hash(password, 10);
-
-      const newUser = User.create({
-        email: email,
-        username: username,
-        password: hashedPassword,
-      });
-      if (!newUser) {
-        return res.status(400).json({ message: "Erro ao criar usuario!" });
-      }
-
-      return res.status(201).json({ message: "Usuario criado com sucesso!" });
-    } catch (error) {
-      console.log("Erro ao criar usuario");
-      return res.status(500).json({ message: "Erro ao criar usuario" });
-    }
-  },
+  
 };
 
 module.exports = usersController;
