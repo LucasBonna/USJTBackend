@@ -31,14 +31,15 @@ const taskSchema = new mongoose.Schema({
     username: { type: String },
   },
   project: {
-    projectId: { type: mongoose.Schema.Types.ObjectId, ref: "Project" },
-    name: { type: String }, 
-    required: true,
+    projectId: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true},
+    name: { type: String, required: true},
   },
   status: { type: String, enum: ["Not Started", "In Progress", "Completed"], default: "Not Started", required: true },
 })
 
 const User = mongoose.model("User", userSchema);
 const Team = mongoose.model("Team", teamSchema);
+const Project = mongoose.model("Project", projectSchema);
+const Task = mongoose.model("Task", taskSchema);
 
-module.exports = { User, Team };
+module.exports = { User, Team, Project, Task};
