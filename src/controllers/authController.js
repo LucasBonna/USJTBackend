@@ -65,7 +65,7 @@ const authController = {
     
           return res.status(201).json({ message: "Usuario criado com sucesso!" });
         } catch (error) {
-          console.log("Erro ao criar usuario");
+          console.log("Erro ao criar usuario: ", error);
           return res.status(500).json({ message: "Erro ao criar usuario" });
         }
       },
