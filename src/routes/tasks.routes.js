@@ -7,12 +7,12 @@ const router = express.Router();
  * @swagger
  * tags:
  *   name: Tasks
- *   description: Creating Tasks
+ *   description: Tasks operations
  */
 
 /**
  * @swagger
- * /api/v1/task/create:
+ * /api/v1/tasks/create:
  *  post:
  *   summary: Create a new task
  *   tags: [Task]
@@ -29,12 +29,23 @@ const router = express.Router();
  *               type: string
  *             dueDate:
  *               type: Date
- *             assignedTo: 
- *               type: string
+ *             assignedTo:
+ *                 type: object
+ *                 properties:
+ *                   userId:
+ *                     type: string
+ *                   username:
+ *                     type: string
  *             project:
- *               type: string
- *             status:          
- *               type: string
+ *                 type: object
+ *                 properties:
+ *                   projectId:
+ *                     type: string
+ *                   name:
+ *                     type: string
+ *             status:
+ *                 type: string
+ *                 enum: [Not Started, In Progress, Completed]
  *   responses:
  *     '201':
  *       description: Task created
