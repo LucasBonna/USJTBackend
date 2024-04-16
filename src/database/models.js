@@ -26,10 +26,9 @@ const teamSchema = new mongoose.Schema({
 const projectSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String },
-<<<<<<< Updated upstream
+
   teamId: { type: mongoose.Schema.Types.ObjectId, ref: "Team", required: true },
-=======
->>>>>>> Stashed changes
+
   users: [
     {
       userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
