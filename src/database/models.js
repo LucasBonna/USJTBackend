@@ -26,9 +26,7 @@ const teamSchema = new mongoose.Schema({
 const projectSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String },
-
   teamId: { type: mongoose.Schema.Types.ObjectId, ref: "Team", required: true },
-
   users: [
     {
       userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },

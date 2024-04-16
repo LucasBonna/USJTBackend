@@ -1,5 +1,5 @@
 const express = require('express');
-const teamsController = require("../controllers/teamsController.1");
+const teamsController = require("../controllers/teamsController");
 
 const router = express.Router();
 
@@ -38,6 +38,6 @@ const router = express.Router();
  *     '500':
  *       description: Internal server error
  */
-router.post(`/create`, teamsController.create);
+router.post(`/createTeam`, teamsController.create);
 
 module.exports = router;
