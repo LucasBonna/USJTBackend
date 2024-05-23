@@ -17,14 +17,10 @@ const authController = {
             }
             
             const accessToken = jwt.sign({ accessToken: user }, process.env.JWT_SECRET, { expiresIn: "2d" });
+                                    
+            res.cookie( 'accessToken', accessToken, { secure: true, httpOnly: true, sameSite: 'Strict' });
             
-            const refreshToken = jwt.sign({ refreshToken: user }, process.env.JWT_SECRET, { expiresIn: "30d"});
-            
-            res.header('Authorization', `Bearer ${accessToken}`);
-            
-            res.cookie( 'refreshToken', refreshToken, { secure: true, httpOnly: true, sameSite: 'Strict' });
-            
-            return res.status(200).json({ message: "Usuario autenticado com sucesso!" });
+            return res.status(200).json({ message: "Usuario autenticado com sucesso!", accessToken: accessToken });
         } catch (error) {
             console.log("Erro ao autenticar o usuario: ", error);
             return res.status(500).json({ message: "Erro ao autenticar o usuario!" });
@@ -67,6 +63,16 @@ const authController = {
         } catch (error) {
           console.log("Erro ao criar usuario: ", error);
           return res.status(500).json({ message: "Erro ao criar usuario" });
+        }
+      },
+
+      logout: async (req, res) => {
+        try {
+            res.clearCookie('refreshToken');
+            return res.status(200).json({ message: "Usuario deslogado com sucesso!" });
+        } catch (error) {
+            console.log("Erro ao deslogar o usuario: ", error);
+            return res.status(500).json({ message: "Erro ao deslogar o usuario!" });
         }
       },
 }

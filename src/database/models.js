@@ -51,9 +51,15 @@ const taskSchema = new mongoose.Schema({
   status: { type: String, enum: ["Not Started", "In Progress", "Completed"], default: "Not Started", required: true },
 });
 
+const expiredTokens = new mongoose.Schema({
+  token: { type: String, required: true },
+  expiredAt: { type: Date, required: true }
+})
+
 const User = mongoose.model("User", userSchema);
 const Team = mongoose.model("Team", teamSchema);
 const Project = mongoose.model("Project", projectSchema);
 const Task = mongoose.model("Task", taskSchema);
+const ExpiredTokens = mongoose.model("ExpiredTokens", expiredTokens);
 
-module.exports = { User, Team, Project, Task };
+module.exports = { User, Team, Project, Task, ExpiredTokens };
