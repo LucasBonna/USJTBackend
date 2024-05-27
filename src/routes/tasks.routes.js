@@ -137,4 +137,3 @@ router.put('/edit/:taskId', tasksController.edit);
 router.delete('/delete/:taskId', tasksController.delete);
 
 module.exports = router;
-

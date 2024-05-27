@@ -27,7 +27,7 @@ const tasksController = {
         const { title, description, dueDate, assignedTo, project, status } = req.body;
 
         try {
-            const taskToUpdate = await Task.findByPk(taskId);
+            const taskToUpdate = await Task.findById(taskId); // Usando findById
 
             if (!taskToUpdate) {
                 return res.status(404).json({ message: "Tarefa não encontrada!" });
@@ -58,7 +58,7 @@ const tasksController = {
         const { taskId } = req.params;
 
         try {
-            const taskToDelete = await Task.findByPk(taskId);
+            const taskToDelete = await Task.findById(taskId); // Usando findById
 
             if (!taskToDelete) {
                 return res.status(404).json({ message: "Tarefa não encontrada!" });
