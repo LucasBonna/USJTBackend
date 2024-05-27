@@ -1,4 +1,4 @@
-const { Task } = require("../database/models")
+const { Task } = require("../database/models");
 
 const tasksController = {
     create: async (req, res) => {
@@ -14,34 +14,26 @@ const tasksController = {
             });
             if (!newTask) {
                 return res.status(400).json({ message: "Erro ao criar task!" });
-              }
-        
-              return res.status(201).json({ message: "Task criado com sucesso!", Task: newTask });
+            }
+            return res.status(201).json({ message: "Task criado com sucesso!", task: newTask });
         } catch (error) {
             console.log("Erro ao criar task: ", error);
-            return res.status(500).json({message: "Erro ao criar task"});
+            return res.status(500).json({ message: "Erro ao criar task" });
         }
-    }, 
+    },
 
     edit: async (req, res) => {
-        const { taskId } = req.params; 
+        const { taskId } = req.params;
         const { title, description, dueDate, assignedTo, project, status } = req.body;
 
         try {
-            const taskToUpdate = await Task.findByPk(taskId); 
+            const taskToUpdate = await Task.findById(taskId); // Usando findById
 
             if (!taskToUpdate) {
                 return res.status(404).json({ message: "Tarefa não encontrada!" });
             }
 
-            const updatedFields = {
-                title: title,
-                description: description,
-                dueDate: dueDate,
-                assignedTo: assignedTo,
-                project: project,
-                status: status
-            };
+            const updatedFields = { title, description, dueDate, assignedTo, project, status };
 
             for (const field in updatedFields) {
                 if (updatedFields[field] !== undefined) {
@@ -60,7 +52,26 @@ const tasksController = {
             console.log("Erro ao atualizar a tarefa: ", error);
             return res.status(500).json({ message: "Erro ao atualizar a tarefa" });
         }
+    },
+
+    delete: async (req, res) => {
+        const { taskId } = req.params;
+
+        try {
+            const taskToDelete = await Task.findById(taskId); // Usando findById
+
+            if (!taskToDelete) {
+                return res.status(404).json({ message: "Tarefa não encontrada!" });
+            }
+
+            await taskToDelete.destroy();
+
+            return res.status(200).json({ message: "Tarefa deletada com sucesso!" });
+        } catch (error) {
+            console.log("Erro ao deletar a tarefa: ", error);
+            return res.status(500).json({ message: "Erro ao deletar a tarefa" });
+        }
     }
-}
+};
 
 module.exports = tasksController;
