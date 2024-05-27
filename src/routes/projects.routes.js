@@ -27,6 +27,10 @@ const router = express.Router();
  *               type: string
  *             description:
  *               type: string
+ *             teamId:
+ *               type: string
+ *             adminId:
+ *               type: string
  *             startDate:
  *               type: string
  *               format: date

@@ -30,6 +30,8 @@ const router = express.Router();
  *                       type: string
  *                       description: ID of the member
  *                       example: "member1"
+ *                     adminId:
+ *                       type: string
  *                     memberName:
  *                       type: string
  *                       description: Name of the member

@@ -17,8 +17,6 @@ const authenticateMiddleware = async (req, res, next) => {
       }
     }
 
-    const isTokenExpired = await User.findOne({ token: accessToken });
-
     // Se o token for válido, podemos prosseguir
     next();
   });

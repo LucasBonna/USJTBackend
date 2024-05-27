@@ -2,16 +2,15 @@ const { Team } = require("../database/models")
 
 const teamsController = {
     createTeam: async (req, res) => {
-        const  { name, members, projects } = req.body;
-        const {user} = req.user;
+        const  { name, members, projects, adminId } = req.body;
         try {
             const newTeam = await Team.create ({
                 name: name,
                 members: members,
                 projects: projects,
-                adminId: user.id,
+                adminId: adminId,
             });
-        if(!newTeams) {
+        if(!newTeam) {
             return res.status(400).json ({message: "Erro ao criar time! "});
         }
         return res.status(201).json({message: "Time criado com sucesso", Team: newTeam});
