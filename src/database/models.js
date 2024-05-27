@@ -56,4 +56,4 @@ const Team = mongoose.model("Team", teamSchema);
 const Project = mongoose.model("Project", projectSchema);
 const Task = mongoose.model("Task", taskSchema);
 
-module.exports = { User, Team, Project, Task, ExpiredTokens };
+module.exports = { User, Team, Project, Task };
