@@ -49,6 +49,32 @@ const teamsController = {
         }
     },
 };
+   deleteTeam: async (req, res) => {
+        const { id } = req.params;
 
+        try {
+            const team = await Team.findById(id);
+
+            if (!team) {
+                return res.status(404).json({ message: "Time não encontrado!" });
+            }
+
+            const { user } = req.user;
+
+            if (team.adminId !== user.id) {
+                return res.status(403).json({ message: "Você não tem permissão para deletar este time!" });
+            }
+
+            await team.remove();
+
+            return res.status(200).json({ message: "Time deletado com sucesso" });
+        } catch (error) {
+            console.error("Erro ao deletar time", error);
+            return res.status(500).json({ message: "Erro ao deletar time" });
+        }
+    },
+};
+
+module.exports = teamsController;
 
 module.exports = teamsController;
