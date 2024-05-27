@@ -5,7 +5,7 @@ const teamsController = {
         const  { name, members, projects } = req.body;
         const {user} = req.user;
         try {
-            const newTeam = await team.create ({
+            const newTeam = await Team.create ({
                 name: name,
                 members: members,
                 projects: projects,
