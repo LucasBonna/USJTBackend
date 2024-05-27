@@ -82,11 +82,6 @@ const router = express.Router();
  */
 router.post('/createTeam', teamsController.createTeam);
 
-module.exports = router;
-=======
-router.post(`/createTeam`, teamsController.createTeam);
-
-
 /**
  * @swagger
  * /api/v1/teams/{id}:
