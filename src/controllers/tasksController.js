@@ -28,7 +28,7 @@ const tasksController = {
         const { title, description, dueDate, assignedTo, project, status } = req.body;
 
         try {
-            const taskToUpdate = await Task.findByPk(taskId); 
+            const taskToUpdate = await Task.findById(taskId); 
 
             if (!taskToUpdate) {
                 return res.status(404).json({ message: "Tarefa não encontrada!" });

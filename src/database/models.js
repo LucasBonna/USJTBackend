@@ -35,6 +35,7 @@ const projectSchema = new mongoose.Schema({
     },
   ],
   tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
+  adminId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 });
 
 const taskSchema = new mongoose.Schema({
