@@ -25,7 +25,7 @@ const teamsController = {
         const { id } = req.params;
         const { name, members, projects } = req.body;
         try {
-            const team = await Team.findByPk(id);
+            const team = await Team.findById;
             if (!team) {
                 return res.status(404).json({ message: "Time não encontrado!" });
             }
