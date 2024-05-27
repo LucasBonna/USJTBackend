@@ -15,7 +15,7 @@ const router = express.Router();
  * /api/v1/tasks/create:
  *  post:
  *   summary: Create a new task
- *   tags: [Task]
+ *   tags: [Tasks]
  *   requestBody:
  *     required: true
  *     content:
@@ -28,7 +28,8 @@ const router = express.Router();
  *             description:
  *               type: string
  *             dueDate:
- *               type: Date
+ *               type: string
+ *               format: date-time
  *             assignedTo:
  *                 type: object
  *                 properties:
@@ -54,7 +55,62 @@ const router = express.Router();
  *     '500':
  *       description: Internal server error
  */
-router.post(`/create`, tasksController.create);
+router.post('/create', tasksController.create);
+
+/**
+ * @swagger
+ * /api/v1/tasks/edit/{taskId}:
+ *  put:
+ *   summary: Edit an existing task
+ *   tags: [Tasks]
+ *   parameters:
+ *     - in: path
+ *       name: taskId
+ *       schema:
+ *         type: string
+ *       required: true
+ *       description: ID of the task to edit
+ *   requestBody:
+ *     required: true
+ *     content:
+ *       application/json:
+ *         schema:
+ *           type: object
+ *           properties:
+ *             title:           
+ *               type: string
+ *             description:
+ *               type: string
+ *             dueDate:
+ *               type: string
+ *               format: date-time
+ *             assignedTo:
+ *                 type: object
+ *                 properties:
+ *                   userId:
+ *                     type: string
+ *                   username:
+ *                     type: string
+ *             project:
+ *                 type: object
+ *                 properties:
+ *                   projectId:
+ *                     type: string
+ *                   name:
+ *                     type: string
+ *             status:
+ *                 type: string
+ *                 enum: [Not Started, In Progress, Completed]
+ *   responses:
+ *     '200':
+ *       description: Task updated
+ *     '400':
+ *       description: Bad request
+ *     '404':
+ *       description: Task not found
+ *     '500':
+ *       description: Internal server error
+ */
+router.put('/edit/:taskId', tasksController.edit);
 
 module.exports = router;
-
