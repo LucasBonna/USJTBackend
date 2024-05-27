@@ -75,6 +75,5 @@ const teamsController = {
     },
 };
 
-module.exports = teamsController;
 
 module.exports = teamsController;
