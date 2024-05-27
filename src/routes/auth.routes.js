@@ -71,4 +71,25 @@ router.post('/authenticate', authController.authenticate);
  */
 router.post(`/register`, authController.register);
 
+/**
+ * @swagger
+ * /api/v1/auth/logout:
+ *   post:
+ *     summary: Logout
+ *     tags: [Logout]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: User logged out successfully
+ *       500:
+ *         description: Internal server error
+ */
+router.post('/logout', authController.logout);
+
 module.exports = router;
+
