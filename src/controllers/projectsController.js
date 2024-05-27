@@ -3,8 +3,7 @@ const { edit } = require("./tasksController");
 
 const projectsController = {
     create: async (req, res) => {
-        const { name, description, teamId, users, tasks } = req.body;
-        const { user } = req.user;
+        const { name, description, teamId, users, tasks, userId } = req.body;
         try {
             const newProject = await Project.create({
                 name: name,
@@ -12,7 +11,7 @@ const projectsController = {
                 teamId: teamId,
                 users: users,
                 tasks: tasks,
-                adminId: user.id,
+                adminId: userId,
             });
             if (!newProject) {
                 return res.status(400).json({ message: "Erro ao criar projeto!" });
