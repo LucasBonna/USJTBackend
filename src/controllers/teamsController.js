@@ -9,7 +9,7 @@ const teamsController = {
                 name: name,
                 members: members,
                 projects: projects,
-                adminId: adminId,
+                adminId: user.id,
             });
         if(!newTeams) {
             return res.status(400).json ({message: "Erro ao criar time! "});

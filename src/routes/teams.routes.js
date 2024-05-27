@@ -38,6 +38,6 @@ const router = express.Router();
  *     '500':
  *       description: Internal server error
  */
-router.post(`/createTeam`, teamsController.create);
+router.post(`/createTeam`, teamsController.createTeam);
 
 module.exports = router;
