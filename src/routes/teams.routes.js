@@ -25,10 +25,24 @@ const router = express.Router();
  *           properties:
  *            name:           
  *               type: string
- *             members:
- *               type: string
- *             project:
- *               type: string
+ *            members:
+ *               type: array
+ *               items:
+ *                 type: string
+ *             projects:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   projectName:
+ *                     type: string
+ *                   deadline:
+ *                     type: string
+ *                     format: date
+ *                   status:
+ *                     type: string
+ *                     enum: [not started, in progress, completed]  
+ *               
  *            
  *  *   responses:
  *     '201':
