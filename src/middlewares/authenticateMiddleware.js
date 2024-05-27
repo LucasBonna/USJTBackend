@@ -1,14 +1,14 @@
 const jwt = require("jsonwebtoken");
+const { User } = require("../database/models");
 
-const authenticateMiddleware = (req, res, next) => {
-  const accessToken =
-    req.headers.authorization && req.headers.authorization.split(" ")[1];
+const authenticateMiddleware = async (req, res, next) => {
+  const accessToken = req.headers.authorization && req.headers.authorization.split(" ")[1];
 
   if (!accessToken) {
     return res.status(401).json({ message: "Token de acesso não fornecido" });
   }
 
-  jwt.verify(accessToken, process.env.JWT_SECRET, (err, decoded) => {
+  jwt.verify(accessToken, process.env.JWT_SECRET, async (err, decoded) => {
     if (err) {
       if (err.name === "TokenExpiredError") {
         return res.status(401).json({ message: "Token de acesso expirado" });
@@ -16,6 +16,8 @@ const authenticateMiddleware = (req, res, next) => {
         return res.status(401).json({ message: "O JWT fornecido é inválido" });
       }
     }
+
+    const isTokenExpired = await User.findOne({ token: accessToken });
 
     // Se o token for válido, podemos prosseguir
     next();
