@@ -48,8 +48,8 @@ const teamsController = {
             return res.status(500).json({ message: "Erro ao editar time" });
         }
     },
-};
-   deleteTeam: async (req, res) => {
+
+    deleteTeam: async (req, res) => {
         const { id } = req.params;
 
         try {
