@@ -16,7 +16,7 @@ const authController = {
                 return res.status(401).json({ message: "Credenciais invalidas!" });
             }
             
-            const accessToken = jwt.sign({ accessToken: user }, process.env.JWT_SECRET, { expiresIn: "2d" });
+            const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "2d" });
                                     
             res.cookie( 'accessToken', accessToken, { secure: true, httpOnly: true, sameSite: 'Strict' });
             

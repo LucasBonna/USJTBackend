@@ -37,13 +37,8 @@ const router = express.Router();
  *                     type: string
  *                   username:
  *                     type: string
- *             project:
- *                 type: object
- *                 properties:
- *                   projectId:
- *                     type: string
- *                   name:
- *                     type: string
+ *             TeamId:
+ *                 type: string
  *             status:
  *                 type: string
  *                 enum: [Not Started, In Progress, Completed]
@@ -91,13 +86,8 @@ router.post('/create', tasksController.create);
  *                     type: string
  *                   username:
  *                     type: string
- *             project:
- *                 type: object
- *                 properties:
- *                   projectId:
- *                     type: string
- *                   name:
- *                     type: string
+ *             teamId:
+ *                 type: string
  *             status:
  *                 type: string
  *                 enum: [Not Started, In Progress, Completed]

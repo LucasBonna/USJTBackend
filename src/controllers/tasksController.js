@@ -2,19 +2,26 @@ const { Task } = require("../database/models");
 
 const tasksController = {
     create: async (req, res) => {
-        const { title, description, dueDate, assignedTo, project, status } = req.body;
+        const { title, description, dueDate, assignedTo, teamId, status } = req.body;
+        console.log(req.body);
+        console.log(assignedTo);
         try {
             const newTask = await Task.create({
-                title: title,
-                description: description,
-                dueDate: dueDate,
-                assignedTo: assignedTo,
-                project: project,
-                status: status
+                title,
+                description,
+                dueDate,
+                assignedTo,
+                teamId,
+                status
             });
+
             if (!newTask) {
                 return res.status(400).json({ message: "Erro ao criar task!" });
             }
+
+            newTask.assignedTo = assignedTo;
+            await newTask.save();
+
             return res.status(201).json({ message: "Task criado com sucesso!", task: newTask });
         } catch (error) {
             console.log("Erro ao criar task: ", error);
@@ -24,7 +31,7 @@ const tasksController = {
 
     edit: async (req, res) => {
         const { taskId } = req.params;
-        const { title, description, dueDate, assignedTo, project, status } = req.body;
+        const { title, description, dueDate, assignedTo, status } = req.body;
 
         try {
             const taskToUpdate = await Task.findById(taskId); 
@@ -34,7 +41,7 @@ const tasksController = {
                 return res.status(404).json({ message: "Tarefa não encontrada!" });
             }
 
-            const updatedFields = { title, description, dueDate, assignedTo, project, status };
+            const updatedFields = { title, description, dueDate, assignedTo, status };
 
             for (const field in updatedFields) {
                 if (updatedFields[field] !== undefined) {

@@ -37,16 +37,7 @@ const router = express.Router();
  *                       description: Name of the member
  *                       example: "John Doe"
  *                 description: Array of member objects
- *               projects:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     projectId:
- *                       type: string
- *                       description: ID of the project
- *                       example: "project1"
- *                 description: Array of project objects
+
  *     responses:
  *       201:
  *         description: Time criado com sucesso
@@ -134,6 +125,40 @@ router.post('/createTeam', teamsController.createTeam);
  *       description: Internal server error
  */
 router.put('/:id', teamsController.editTeam);
+``
+
+
+/**
+ * @swagger
+ * /api/v1/teams/:
+ *  get:
+ *   summary: Get user teams
+ *   tags: [Teams]
+ *   parameters:
+ *     - in: query
+ *       name: userId
+ *       schema:
+ *         type: string
+ *       required: true
+ *       description: ID of the user
+ *   responses:
+ *     '200':
+ *       description: Teams
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             items:
+ *               $ref: '#/components/schemas/Team'
+ *     '400':
+ *       description: Bad request
+ *     '404':
+ *       description: Team not found
+ *     '500':
+ *       description: Internal server error
+ */
+router.get('/', teamsController.getUserTeams);
+
 
 module.exports = router;
 
