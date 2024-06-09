@@ -79,7 +79,24 @@ const tasksController = {
             console.log("Erro ao deletar a tarefa: ", error);
             return res.status(500).json({ message: "Erro ao deletar a tarefa" });
         }
-    }
+    },
+
+    getTaskById: async (req, res) => {
+        const { taskId } = req.params;
+
+        try {
+            const task = await Task.findById(taskId);
+
+            if (!task) {
+                return res.status(404).json({ message: "Tarefa não encontrada!" });
+            }
+
+            return res.status(200).json({ task });
+        } catch (error) {
+            console.log("Erro ao buscar informações da tarefa: ", error);
+            return res.status(500).json({ message: "Erro ao buscar informações da tarefa" });
+        }
+    },
 };
 
 module.exports = tasksController;

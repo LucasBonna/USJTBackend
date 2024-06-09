@@ -126,4 +126,28 @@ router.put('/edit/:taskId', tasksController.edit);
  */
 router.delete('/delete/:taskId', tasksController.delete);
 
+
+/**
+ * @swagger
+ * /api/v1/tasks/{taskId}:
+ *   get:
+ *     summary: Get task information
+ *     tags: [Tasks]
+ *     parameters:
+ *       - in: path
+ *         name: taskId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the task
+ *     responses:
+ *       '200':
+ *         description: Task information
+ *       '404':
+ *         description: Task not found
+ *       '500':
+ *         description: Internal server error
+ */
+router.get('/:id', tasksController.getTaskById);
+
 module.exports = router;
