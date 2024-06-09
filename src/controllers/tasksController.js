@@ -82,10 +82,10 @@ const tasksController = {
     },
 
     getTaskById: async (req, res) => {
-        const { taskId } = req.params;
+        const { id } = req.params;
 
         try {
-            const task = await Task.findById(taskId);
+            const task = await Task.findById(id);
 
             if (!task) {
                 return res.status(404).json({ message: "Tarefa não encontrada!" });
