@@ -2,12 +2,11 @@ const { Team } = require("../database/models")
 
 const teamsController = {
     createTeam: async (req, res) => {
-        const  { name, members, projects, adminId } = req.body;
+        const  { name, members, adminId } = req.body;
         try {
             const newTeam = await Team.create ({
                 name: name,
                 members: members,
-                projects: projects,
                 adminId: adminId,
             });
         if(!newTeam) {
@@ -22,7 +21,7 @@ const teamsController = {
     },
     editTeam: async (req, res) => {
         const { id } = req.params;
-        const { name, members, projects } = req.body;
+        const { name, members } = req.body;
         try {
             const team = await Team.findById(id);
             if (!team) {
@@ -37,7 +36,6 @@ const teamsController = {
 
             team.name = name || team.name;
             team.members = members || team.members;
-            team.projects = projects || team.projects;
 
             await team.save();
 

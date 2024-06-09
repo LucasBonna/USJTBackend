@@ -1,4 +1,4 @@
-const { User, Task, Project, Team } = require("../database/models");
+const { User, Task, Team } = require("../database/models");
 
 const usersController = {
   getUsers: async (req, res) => {
@@ -31,7 +31,6 @@ const usersController = {
       }
   
       const tasks = await Task.find({ "assignedTo.userId": userId });
-      const projects = await Project.find({ "users.userId": userId });
       const teams = await Team.find({ "members.userId": userId });
   
       return res.status(200).json({

@@ -37,16 +37,7 @@ const router = express.Router();
  *                       description: Name of the member
  *                       example: "John Doe"
  *                 description: Array of member objects
- *               projects:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     projectId:
- *                       type: string
- *                       description: ID of the project
- *                       example: "project1"
- *                 description: Array of project objects
+
  *     responses:
  *       201:
  *         description: Time criado com sucesso
