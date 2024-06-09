@@ -134,7 +134,7 @@ router.post('/createTeam', teamsController.createTeam);
  *       description: Internal server error
  */
 router.put('/:id', teamsController.editTeam);
-
+``
 
 
 /**
