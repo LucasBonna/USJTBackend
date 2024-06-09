@@ -72,6 +72,26 @@ const teamsController = {
             return res.status(500).json({ message: "Erro ao deletar time" });
         }
     },
+
+    getUserTeams: async (req, res) => {
+        const { userId } = req;
+    
+        try {
+            // Encontrar os times aos quais o usuário pertence
+            const teams = await Team.find({
+                members: { $elemMatch: { userId } }
+            });
+    
+            if (teams.length === 0) {
+                return res.status(404).json({ message: "Nenhum time encontrado para este usuário" });
+            }
+    
+            return res.status(200).json({ teams: teams });
+        } catch (error) {
+            console.error("Erro ao buscar times do usuário", error);
+            return res.status(500).json({ message: "Erro ao buscar times do usuário" });
+        }
+    }
 };
 
 

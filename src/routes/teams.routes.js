@@ -135,5 +135,39 @@ router.post('/createTeam', teamsController.createTeam);
  */
 router.put('/:id', teamsController.editTeam);
 
+
+
+/**
+ * @swagger
+ * /api/v1/teams/:
+ *  get:
+ *   summary: Get user teams
+ *   tags: [Teams]
+ *   parameters:
+ *     - in: query
+ *       name: userId
+ *       schema:
+ *         type: string
+ *       required: true
+ *       description: ID of the user
+ *   responses:
+ *     '200':
+ *       description: Teams
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             items:
+ *               $ref: '#/components/schemas/Team'
+ *     '400':
+ *       description: Bad request
+ *     '404':
+ *       description: Team not found
+ *     '500':
+ *       description: Internal server error
+ */
+router.get('/', teamsController.getUserTeams);
+
+
 module.exports = router;
 

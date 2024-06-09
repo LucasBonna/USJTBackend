@@ -18,6 +18,8 @@ const authenticateMiddleware = async (req, res, next) => {
     }
 
     // Se o token for válido, podemos prosseguir
+
+    req.userId = decoded.userId
     next();
   });
 };
