@@ -22,25 +22,27 @@ const usersController = {
   
   getUserInfo: async (req, res) => {
     const { userId } = req;
+  
     try {
-      const user = await User.findById(userId)
-        .populate('tasks')
-        .populate('projects')
-        .populate('teams');
+      const user = await User.findById(userId);
   
       if (!user) {
-        return res.status(404).json({ message: "Usuario não encontrado!" });
+        return res.status(404).json({ message: "Usuário não encontrado!" });
       }
+  
+      const tasks = await Task.find({ "assignedTo.userId": userId });
+      const projects = await Project.find({ "users.userId": userId });
+      const teams = await Team.find({ "members.userId": userId });
   
       return res.status(200).json({
         user: {
           _id: user._id,
           email: user.email,
           username: user.username,
-          tasks: user.tasks,
-          projects: user.projects,
-          teams: user.teams
-        }
+          tasks,
+          projects,
+          teams,
+        },
       });
     } catch (error) {
       console.error("Erro ao buscar informações do usuário:", error);
