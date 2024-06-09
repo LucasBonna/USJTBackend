@@ -39,7 +39,6 @@ const usersController = {
           email: user.email,
           username: user.username,
           tasks,
-          projects,
           teams,
         },
       });
