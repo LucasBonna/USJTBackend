@@ -32,6 +32,7 @@ const tasksController = {
     edit: async (req, res) => {
         const { taskId } = req.params;
         const { title, description, dueDate, assignedTo, status } = req.body;
+        console.log(req.body);
 
         try {
             const taskToUpdate = await Task.findById(taskId); 
@@ -97,6 +98,28 @@ const tasksController = {
             return res.status(500).json({ message: "Erro ao buscar informações da tarefa" });
         }
     },
+
+    updateStatus: async (req, res) => {
+        const { taskId } = req.params;
+        const { status } = req.body;
+    
+        try {
+          const task = await Task.findById(taskId);
+    
+          if (!task) {
+            return res.status(404).json({ message: "Tarefa não encontrada!" });
+          }
+    
+          task.status = status;
+          await task.save();
+    
+          return res.status(200).json({ message: "Status da tarefa atualizado com sucesso!", task });
+        } catch (error) {
+          console.log("Erro ao atualizar status da tarefa: ", error);
+          return res.status(500).json({ message: "Erro ao atualizar status da tarefa" });
+        }
+      },
+
 };
 
 module.exports = tasksController;

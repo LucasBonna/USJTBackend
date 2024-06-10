@@ -150,4 +150,37 @@ router.delete('/delete/:taskId', tasksController.delete);
  */
 router.get('/:id', tasksController.getTaskById);
 
+/**
+ * @swagger
+ * /api/v1/tasks/update-status/{taskId}:
+ *   put:
+ *     summary: Update the status of a task
+ *     tags: [Tasks]
+ *     parameters:
+ *       - in: path
+ *         name: taskId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the task to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               status:
+ *                 type: string
+ *                 enum: [Not Started, In Progress, Completed]
+ *     responses:
+ *       '200':
+ *         description: Task status updated
+ *       '404':
+ *         description: Task not found
+ *       '500':
+ *         description: Internal server error
+ */
+router.put('/update-status/:taskId', tasksController.updateStatus);
+
 module.exports = router;
