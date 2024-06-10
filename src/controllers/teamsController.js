@@ -29,6 +29,8 @@ const teamsController = {
     editTeam: async (req, res) => {
         const { id } = req.params;
         const { name, members } = req.body;
+        console.log(req.body)
+        console.log(req.params)
         try {
             const team = await Team.findById(id);
             if (!team) {
@@ -36,8 +38,10 @@ const teamsController = {
             }
 
         
-            const { user } = req.user;
-            if (team.adminId !== user.id) {
+            const { userId } = req;
+            console.log(userId)
+            console.log(team.adminId)
+            if (team.adminId != userId) {
                 return res.status(403).json({ message: "Você não tem permissão para editar este time!" });
             }
 
@@ -117,6 +121,7 @@ const teamsController = {
 
     getTeamInfo: async (req, res) => {
         const { teamId } = req.params;
+        console.log(req.params)
         const {userId} = req;
 
         try {
