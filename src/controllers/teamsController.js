@@ -2,22 +2,29 @@ const { Team } = require("../database/models")
 
 const teamsController = {
     createTeam: async (req, res) => {
-        const  { name, members, adminId } = req.body;
+        const { name, members, adminId } = req.body;
+        console.log(req.body)
         try {
-            const newTeam = await Team.create ({
-                name: name,
-                members: members,
-                adminId: adminId,
-            });
-        if(!newTeam) {
-            return res.status(400).json ({message: "Erro ao criar time! "});
-        }
-        return res.status(201).json({message: "Time criado com sucesso", Team: newTeam});
-      } catch (error) {
-        console.log("Erro ao criar time", error);
-        return res.status(500).json({message: "Erro ao criar time" });
-      }
+            const mappedMembers = members.map(member => ({
+                userId: member.memberId,
+                username: member.memberName
+            }));
 
+            const newTeam = await Team.create({
+                name,
+                members: mappedMembers,
+                adminId,
+            });
+
+            if (!newTeam) {
+                return res.status(400).json({ message: "Erro ao criar time!" });
+            }
+
+            return res.status(201).json({ message: "Time criado com sucesso", Team: newTeam });
+        } catch (error) {
+            console.log("Erro ao criar time", error);
+            return res.status(500).json({ message: "Erro ao criar time" });
+        }
     },
     editTeam: async (req, res) => {
         const { id } = req.params;
@@ -89,7 +96,24 @@ const teamsController = {
             console.error("Erro ao buscar times do usuário", error);
             return res.status(500).json({ message: "Erro ao buscar times do usuário" });
         }
-    }
+    },
+
+    getTeams: async (req, res) => {
+        try {
+            const teams = await Team.find();
+            if (teams.length < 1) {
+                return res.status(204).json({ message: "Nenhum time encontrado!" });
+            }
+            if (!teams) {
+                return res.status(404).json({ message: "Erro ao buscar times!" });
+            }
+
+            return res.status(200).json({ message: "Times buscados com sucesso!", teams });
+        } catch (error) {
+            console.log("Erro ao buscar times: ", error);
+            return res.status(500).json({ message: "Erro ao buscar times" });
+        }
+    },
 };
 
 

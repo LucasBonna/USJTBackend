@@ -32,6 +32,7 @@ const usersController = {
   
       const tasks = await Task.find({ "assignedTo.userId": userId });
       const teams = await Team.find({ "members.userId": userId });
+      const teamAdmin = await Team.find({ "adminId": userId });
   
       return res.status(200).json({
         user: {

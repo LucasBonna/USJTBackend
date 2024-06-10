@@ -73,7 +73,7 @@ const tasksController = {
                 return res.status(404).json({ message: "Tarefa não encontrada!" });
             }
 
-            await taskToDelete.destroy();
+            await Task.deleteOne({ _id: taskId });
 
             return res.status(200).json({ message: "Tarefa deletada com sucesso!" });
         } catch (error) {

@@ -159,6 +159,62 @@ router.put('/:id', teamsController.editTeam);
  */
 router.get('/', teamsController.getUserTeams);
 
+/**
+ * @swagger
+ * /api/v1/teams/all:
+ *   get:
+ *     summary: Get all teams
+ *     tags: [Teams]
+ *     responses:
+ *       '200':
+ *         description: Teams retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Times buscados com sucesso!"
+ *                 teams:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                         example: "team_id"
+ *                       name:
+ *                         type: string
+ *                         example: "Team Name"
+ *                       members:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             userId:
+ *                               type: string
+ *                               example: "user_id"
+ *                             username:
+ *                               type: string
+ *                               example: "username"
+ *                             _id:
+ *                               type: string
+ *                               example: "member_id"
+ *                       adminId:
+ *                         type: string
+ *                         example: "admin_id"
+ *                       __v:
+ *                         type: integer
+ *                         example: 0
+ *       '204':
+ *         description: No teams found
+ *       '404':
+ *         description: Error retrieving teams
+ *       '500':
+ *         description: Internal server error
+ */
+router.get('/all', teamsController.getTeams);
 
 module.exports = router;
 
