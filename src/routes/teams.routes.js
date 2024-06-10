@@ -216,5 +216,86 @@ router.get('/', teamsController.getUserTeams);
  */
 router.get('/all', teamsController.getTeams);
 
+/**
+ * @swagger
+ * /api/v1/teams/info/{teamId}:
+ *   get:
+ *     summary: Get team information
+ *     tags: [Teams]
+ *     parameters:
+ *       - in: path
+ *         name: teamId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the team
+ *     responses:
+ *       '200':
+ *         description: Team information retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Informações do time"
+ *                 teamInfo:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                       example: "team_id"
+ *                     name:
+ *                       type: string
+ *                       example: "Team Name"
+ *                     members:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           userId:
+ *                             type: string
+ *                             example: "user_id"
+ *                           username:
+ *                             type: string
+ *                             example: "username"
+ *                           _id:
+ *                             type: string
+ *                             example: "member_id"
+ *                     adminId:
+ *                       type: string
+ *                       example: "admin_id"
+ *                     projects:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                     tasks:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *       '404':
+ *         description: Team not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Time não encontrado!"
+ *       '500':
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Erro ao buscar informações do time"
+ */
+router.get('/info/:teamId', teamsController.getTeamInfo);
+
 module.exports = router;
 

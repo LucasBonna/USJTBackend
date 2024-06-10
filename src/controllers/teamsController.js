@@ -114,6 +114,29 @@ const teamsController = {
             return res.status(500).json({ message: "Erro ao buscar times" });
         }
     },
+
+    getTeamInfo: async (req, res) => {
+        const { teamId } = req.params;
+        const {userId} = req;
+
+        try {
+            const team = await Team.findById(teamId);
+
+            if (!team) {
+                return res.status(404).json({ message: "Time não encontrado!" });
+            }
+
+            if (team.adminId != userId) {
+                return res.status(401).json({ message: "Você não tem permissão para editar este time!" });
+            }
+
+
+            return res.status(200).json({ message: "Informações do time:", team });
+        } catch (error) {
+            console.error("Erro ao buscar informações do time", error);
+            return res.status(500).json({ message: "Erro ao buscar informações do time" });
+        }
+    },
 };
 
 
